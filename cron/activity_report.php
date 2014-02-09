@@ -1,7 +1,9 @@
 <?php
 use Communities\Activity_Reports\Report\Weekly_Activity_Report;
+use Communities\Activity_Reports\Report\Monthly_Activity_Report;
 use Communities\Activity_Reports\Controller\Report_Generator_Controller;
 
+ini_set('memory_limit', '2048M');
 
 /**
  * Usage: Run from command line.
@@ -46,11 +48,22 @@ if ( ! is_dir($wp_folder_root))
 
 $wp_folder_root = realpath($wp_folder_root) . DIRECTORY_SEPARATOR;
 
+
 // Load in wordpress environment.
 require_once $wp_folder_root.'wp-load.php';
 
-switch_to_blog($argv[2]);
+//switch_to_blog($argv[2]);
 
+
+$date = new \DateTime('now');
+
+$today = $date->format('Y-m-d'); //Today's date
+$day_of_week = strtolower($date->format('l')); //Today's day of the week
+
+$date->modify('last day of this month');
+$last_of_month = $date->format('Y-m-d'); //Last day of this month
+
+//Testing
 try {
 		Report_Generator_Controller::factory(new Weekly_Activity_Report)->run();
 		
@@ -58,6 +71,20 @@ try {
 	
 	echo $e->getMessage();
 }
+exit;
 
+
+
+//Weekly Report
+if($day_of_week == 'wednesday') {//Replace with plugin option day
+	
+	Report_Generator_Controller::factory(new Weekly_Activity_Report)->run();
+}
+
+//Monthly Report
+if($today == $last_of_month) {
+	
+	Report_Generator_Controller::factory(new Monthly_Activity_Report)->run();
+}
 
 exit;

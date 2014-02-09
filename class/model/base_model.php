@@ -11,6 +11,12 @@ class Base_Model {
 	
 	public $count;
 	
+	protected $_table;
+	
+	protected $_date_field;
+	
+	protected $_type_field;
+	
 	protected $_wpdb;
 	
 	protected $_current_date;
@@ -33,7 +39,8 @@ class Base_Model {
 	
 	public function get() {
 	
-	
+		$this->_sql();
+		
 		$count = $this->_wpdb->get_var($this->_sql);
 	
 		$this->_count($count);
@@ -41,7 +48,7 @@ class Base_Model {
 		return $this;
 	}
 	
-	public function from($date_text) { //date_text would be '-1 week' for weekly and '-1 month' for monthly
+	public function from($date_text) { //date_text would be '-1 week' for weekly and '1 month ago' for monthly
 	
 		$this->start = date('Y-m-d H:i:s', strtotime($date_text));
 	
@@ -62,13 +69,19 @@ class Base_Model {
 	
 		return $this;
 	}
-	
-	protected function _sql($table, $dt_field, $type_field = null) {
-	
-		$this->_sql = "SELECT count(*) from {$this->_wpdb->$table} WHERE {$dt_field} BETWEEN '{$this->start}' AND '{$this->end}' ";
+	protected function _fields($table, $date_field, $type_field = null) {
 		
-		if($type_field)
-			$this->_sql .= "AND {$type_field} = {$this->type}";
+		$this->_table = $table;
+		$this->_date_field = $date_field;
+		$this->_type_field = $type_field;
+		
+	}
+	protected function _sql() {
+	
+		$this->_sql = "SELECT count(*) from {$this->_wpdb->{$this->_table}} WHERE {$this->_date_field} BETWEEN '{$this->start}' AND '{$this->end}' ";
+		
+		if($this->_type_field)
+			$this->_sql .= "AND {$this->_type_field} = '{$this->type}'";
 	}
 	
 	protected function _count($cnt) {

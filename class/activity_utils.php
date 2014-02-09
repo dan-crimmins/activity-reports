@@ -7,8 +7,12 @@ class Activity_Utils {
 	public static function autoload($class) {
 	
 		$class_dir = SHC_ACTIVITY_CLASS;
-		$file = strtolower(trim($class)) . '.php';
-	
+		
+		$class_parts = explode('\\', $class);
+		$index = count($class_parts) - 1;
+		$file = strtolower(trim($class_parts[$index])) . '.php';
+		
+		
 		//Check class root dir first
 		if(file_exists($class_dir . $file)) {
 				

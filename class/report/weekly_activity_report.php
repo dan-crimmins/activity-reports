@@ -1,6 +1,7 @@
 <?php
 namespace Communities\Activity_Reports\Report;
 
+use Communities\Activity_Reports\Report\Report_Base;
 use Communities\Activity_Reports\Report_Interface;
 use Communities\Activity_Reports\Notifier\Report_Notifier_Interface;
 use Communities\Activity_Reports\Activity_Utils;
@@ -17,10 +18,9 @@ class Weekly_Activity_Report extends Report_Base implements Report_Interface {
 	
 	public function run(Report_Notifier_Interface $notifier) {
 		
-		$view = Activity_Utils::view('email', array('data'	=> $this,
-													'store' => Report_Data::getStore(),
-													'type'  => 'weekly'),
-											 true); 
+		$view = Activity_Utils::view('weekly_email', array('data'	=> $this,
+															'store' => Report_Data::getStore()), true); 
+		
 		
 		$message = $notifier->setRecipients('dcrimmi@searshc.com')
 							 ->setSubject(Report_Data::getStore() . ' Communities At A Glance Weekly Report')
@@ -75,7 +75,7 @@ class Weekly_Activity_Report extends Report_Base implements Report_Interface {
 	
 	protected function _replies() {
 		
-		$this->replies = Report_Data::getWeekleyReplies();
+		$this->replies = Report_Data::getWeeklyReplies();
 	}
 	
 	protected function _users() {

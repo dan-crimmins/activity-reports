@@ -1,4 +1,5 @@
 <?php
+namespace Communities\Activity_Reports\Report;
 
 class Report_Base {
 	

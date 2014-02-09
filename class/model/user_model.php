@@ -7,7 +7,12 @@ class User_Model extends Base_Model {
 	public function __construct() {
 		
 		parent::__construct();
-		$this->_sql('users', 'user_registered');
+		$this->_fields('users', 'user_registered');
+	}
+	
+	public static function factory() {
+		
+		return new User_Model;
 	}
 	
 	

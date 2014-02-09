@@ -1,4 +1,5 @@
 <?php
+use Communities\Activity_Reports\Activity_Utils;
 /*
  Plugin Name: Communities Activity Reports
 Description: Automated activity report generation.
@@ -26,4 +27,4 @@ require_once(SHC_ACTIVITY_CLASS . 'activity_utils.php');
 
 
 //Register autoload function
-spl_autoload_register(array('Activity_Utils', 'autoload'));
+spl_autoload_register(array('Communities\Activity_Reports\Activity_Utils', 'autoload'));
