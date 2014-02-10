@@ -3,6 +3,25 @@ namespace Communities\Activity_Reports;
 
 class Activity_Utils {
 	
+	public static $_option_name;
+	
+	public static $_option_defaults = array('weekly_day' => 'wednesday',
+											'recipients' => 'phpteam@searshc.com');
+	
+	/**
+	 * $_classes - Array of classes to load on init
+	 * @var array
+	 * @see init()
+	 */
+	public static $_classes = array('activity_settings_admin'	=> 'Communities\Activity_Reports\Admin_Settings_Controller');
+							
+	
+	
+	public static function option_name() {
+		
+		self::$_option_name = SHC_ACTIVITY_REPORT_PREFIX . 'settings';
+	}
+	
 	//class autoloader
 	public static function autoload($class) {
 	
@@ -39,6 +58,7 @@ class Activity_Utils {
 					}
 				}		
 				
+				
 				}
 				
 			}
@@ -72,6 +92,88 @@ class Activity_Utils {
 		}
 	
 	}
+	
+	/**
+	 * options() - Sets and gets plugin options.
+	 *
+	 * @param string $name
+	 * @param mixed $value
+	 * @return mixed - [array | string | NULL]
+	 */
+	public static function options($name = null, $value = null) {
+	
+		//Set option prefix property
+		self::option_name();
+	
+		//Get plugin options
+		$options = get_option(self::$_option_name);
+	
+		//Return entire settings array
+		if($name === null && $value === null && $options) {
+				
+			return $options;
+		}
+	
+		//Get a specific element from options
+		if((($name !== null && ! is_array($name)) && $value === null) && isset($options[$name]) ) {
+				
+			return $options[$name];
+		}
+	
+		//Set plugin options - all
+		if(($name !== null && is_array($name)) && $value === null) {
+				
+			return update_option(self::$_option_name, $value);
+		}
+	
+		//Set, update value of one element of options array
+		if($name !== null && $value !== null) {
+				
+			$options[$name] = $value;
+				
+			return update_option(self::$_option_name, $options);
+		}
+	
+		return null;
+	}
+	
+	/**
+	 * init() - Used to instantiate objects of classes with init hooks (ie. Admin stuff)
+	 *
+	 * @param void
+	 * @return void
+	 */
+	public static function init() {
+	
+		foreach(self::$_classes as $var=>$class) {
+				
+			$$var = new $class();
+		}
+	}
+	
+	protected function _add_capabilities() {
+	
+		$role = get_role('administrator');
+	
+		$role->add_cap('activity_report_admin');
+
+	}
+	
+	public static function install() {
+			
+		update_option(SHC_ACTIVITY_REPORT_PREFIX . 'settings', self::$_option_defaults);
+	
+		self::_add_capabilities();
+	
+		flush_rewrite_rules();
+	}
+	
+	public static function uninstall() {
+			
+		delete_option(SHC_ACTIVITY_REPORT_PREFIX . 'settings');
+	}
+	
+	
 	
 	
 }

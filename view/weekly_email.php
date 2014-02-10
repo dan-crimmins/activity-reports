@@ -1,7 +1,7 @@
 <?php 
 
 $has_deltas = ($data->deltas !== null) ? true : false;
-$header_color = ($store == 'sears') ? '#0033CC' : '#FF0000';
+$header_color = (strtolower($store) == 'sears') ? '#0033CC' : '#FF0000';
 $delta_neg = 'style="color: #990000"';
 $delta_pos = 'style="color: #009900"';
 ?>

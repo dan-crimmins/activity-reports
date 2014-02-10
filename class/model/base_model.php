@@ -69,6 +69,7 @@ class Base_Model {
 	
 		return $this;
 	}
+	
 	protected function _fields($table, $date_field, $type_field = null) {
 		
 		$this->_table = $table;
@@ -76,6 +77,7 @@ class Base_Model {
 		$this->_type_field = $type_field;
 		
 	}
+	
 	protected function _sql() {
 	
 		$this->_sql = "SELECT count(*) from {$this->_wpdb->{$this->_table}} WHERE {$this->_date_field} BETWEEN '{$this->start}' AND '{$this->end}' ";

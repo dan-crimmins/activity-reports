@@ -1,5 +1,5 @@
 <?php
-$header_color = ($store == 'sears') ? '#0033CC' : '#FF0000';
+$header_color = (strtolower($store) == 'sears') ? '#0033CC' : '#FF0000';
 ?>
 
 <html>

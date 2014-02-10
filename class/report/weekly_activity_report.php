@@ -22,7 +22,7 @@ class Weekly_Activity_Report extends Report_Base implements Report_Interface {
 															'store' => Report_Data::getStore()), true); 
 		
 		
-		$message = $notifier->setRecipients('dcrimmi@searshc.com')
+		$message = $notifier->setRecipients(Activity_Utils::option('recipients'))
 							 ->setSubject(Report_Data::getStore() . ' Communities At A Glance Weekly Report')
 							 ->setBody($view)
 							 ->send();

@@ -16,14 +16,14 @@ class Report_Data {
 	//For weekly
 	public static function reportOptionKey($report_date) {
 		
-		return SHC_ACTIVITY_REPORT_PREFIX . '-' . Report_Data::getStore() . '-' . 
-				(is_int($report_date)) ? date('Y.m.d', $report_date) : date('Y.m.d', strtotime($report_date));
+		return SHC_ACTIVITY_REPORT_PREFIX . Report_Data::getStore() . '-' . 
+				((is_int($report_date)) ? date('Y.m.d', $report_date) : date('Y.m.d', strtotime($report_date)));
 	}
 	
 	public static function monthlyReportOptionKey($report_date) {
 		
-		return SHC_ACTIVITY_REPORT_PREFIX . '-' . Report_Data::getStore() . '-' .
-				(is_int($report_date)) ? date('Y.m', $report_date) : date('Y.m', strtotime($report_date));
+		return SHC_ACTIVITY_REPORT_PREFIX . Report_Data::getStore() . '-' .
+				((is_int($report_date)) ? date('Y.m', $report_date) : date('Y.m', strtotime($report_date)));
 	}
 	
 	public static function getWeeklyComments() {
@@ -87,7 +87,7 @@ class Report_Data {
 	
 	public static function getLastWeeksData() {
 		
-		 return get_option(self::reportOptionKey(date('-1 week')), null);
+		 return get_option(self::reportOptionKey(strtotime('-1 week')), null);
 	}
 	
 	

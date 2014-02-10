@@ -2,6 +2,7 @@
 use Communities\Activity_Reports\Report\Weekly_Activity_Report;
 use Communities\Activity_Reports\Report\Monthly_Activity_Report;
 use Communities\Activity_Reports\Controller\Report_Generator_Controller;
+use Communities\Activity_Reports\Activity_Utils;
 
 ini_set('memory_limit', '2048M');
 
@@ -52,7 +53,8 @@ $wp_folder_root = realpath($wp_folder_root) . DIRECTORY_SEPARATOR;
 // Load in wordpress environment.
 require_once $wp_folder_root.'wp-load.php';
 
-//switch_to_blog($argv[2]);
+//Set the blog
+switch_to_blog($argv[2]);
 
 
 $date = new \DateTime('now');

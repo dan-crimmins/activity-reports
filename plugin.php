@@ -28,3 +28,11 @@ require_once(SHC_ACTIVITY_CLASS . 'activity_utils.php');
 
 //Register autoload function
 spl_autoload_register(array('Communities\Activity_Reports\Activity_Utils', 'autoload'));
+
+//Install / Uninstall
+register_activation_hook(__FILE__, array('Communities\Activity_Reports\Activity_Utils', 'install'));
+register_deactivation_hook(__FILE__, array('Communities\Activity_Reports\Activity_Utils', 'uninstall'));
+
+
+//Initialize classes with hooks
+Activity_Utils::init();
