@@ -18,7 +18,7 @@ class Monthly_Activity_Report extends Report_Base implements Report_Interface {
 															'store' => Report_Data::getStore()), true);
 
 
-		$message = $notifier->setRecipients(Activity_Utils::option('recipients'))
+		$message = $notifier->setRecipients(Activity_Utils::options('recipients'))
 							->setSubject(Report_Data::getStore() . ' Communities Monthly Report')
 							->setBody($view)
 							->send();

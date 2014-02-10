@@ -66,19 +66,19 @@ $date->modify('last day of this month');
 $last_of_month = $date->format('Y-m-d'); //Last day of this month
 
 //Testing
-try {
+/*try {
 		Report_Generator_Controller::factory(new Weekly_Activity_Report)->run();
 		
 } catch(Exception $e) {
 	
 	echo $e->getMessage();
 }
-exit;
+exit;*/
 
 
 
 //Weekly Report
-if($day_of_week == 'wednesday') {//Replace with plugin option day
+if($day_of_week == Activity_Utils::options('weekly_day')) {//Replace with plugin option day
 	
 	Report_Generator_Controller::factory(new Weekly_Activity_Report)->run();
 }
