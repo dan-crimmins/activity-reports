@@ -38,11 +38,11 @@ $header_color = (strtolower($store) == 'sears') ? '#0033CC' : '#FF0000';
 			<td><?php echo $data->posts;?></td>
 		</tr>
 		<tr bgcolor="#F8F8F8">
-			<td align="left">Threads:</td>
+			<td align="left">Forum Threads:</td>
 			<td><?php echo $data->threads;?></td>
 		</tr>
 		<tr>
-			<td align="left">Replies:</td>
+			<td align="left">Forum Replies:</td>
 			<td><?php echo $data->replies;?></td>
 		</tr>
 	</table>

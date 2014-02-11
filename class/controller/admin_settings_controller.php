@@ -24,10 +24,11 @@ class Admin_Settings_Controller {
 		add_action('admin_menu', array(&$this, 'menu'));
 		add_action('admin_init', array(&$this, 'register_settings'));
 		
+		
 	}
 	
 	public function menu() {
-	
+		add_menu_page( 'Activity Reports', 'Activity Reports', 'activity_report_admin', 'activity-report-settings', array(&$this, 'settings_page'));
 		add_options_page('Activity Report Settings', 'Activity Report Settings', 'activity_report_admin', 'activity-reports-settings', array(&$this, 'settings_page'));
 	}
 	

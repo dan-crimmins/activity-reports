@@ -51,13 +51,13 @@ $delta_pos = 'style="color: #009900"';
 	<?php echo ($data->deltas !== null) ? $data->deltas->posts : 'NA';?> from last week</td>
 </tr>
 <tr bgcolor="#F8F8F8">
-<td align="left">New Threads:</td>
+<td align="left">New Forum Threads:</td>
 <td><?php echo $data->threads;?></td>
 <td <?php if($has_deltas && $data->deltas->threads > 0): echo $delta_pos; elseif($has_deltas && $data->deltas->threads < 0): echo $delta_neg; endif;?>>
 	<?php echo ($data->deltas !== null) ? $data->deltas->threads : 'NA';?> from last week</td>
 </tr>
 <tr>
-<td align="left">New Replies:</td>
+<td align="left">New Forum Replies:</td>
 <td><?php echo $data->replies;?></td>
 <td <?php if($has_deltas && $data->deltas->replies > 0): echo $delta_pos; elseif($has_deltas && $data->deltas->replies < 0): echo $delta_neg; endif;?>>
 	<?php echo ($data->deltas !== null) ? $data->deltas->replies : 'NA';?> from last week</td>

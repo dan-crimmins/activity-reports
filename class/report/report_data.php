@@ -62,7 +62,7 @@ class Report_Data {
 	
 	public static function getWeeklyThreads() {
 		
-		return Post_Model::factory('thread')
+		return Post_Model::factory('topic')
 						 ->from('-1 week')
 						 ->get()
 						 ->count;
@@ -131,7 +131,7 @@ class Report_Data {
 	
 	public static function getMonthlyThreads() {
 		
-		return Post_Model::factory('thread')
+		return Post_Model::factory('topic')
 						 ->from('first day of this month')
 						 ->get()
 						 ->count;
