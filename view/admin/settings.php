@@ -1,7 +1,7 @@
 <div>
 	<h2>Communities Activities Report</h2>
 	
-	<form action="options.php" method="post">
+	<form action="<?php echo $form_action; ?>" method="post">
 	<?php settings_fields($settings_field); ?>
 	<?php do_settings_sections($settings_section); ?>
 	 

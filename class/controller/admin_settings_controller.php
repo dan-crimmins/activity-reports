@@ -24,11 +24,13 @@ class Admin_Settings_Controller {
 		add_action('admin_menu', array(&$this, 'menu'));
 		add_action('admin_init', array(&$this, 'register_settings'));
 		
+		//since we are using a custom capability (not manage_options) for this settings page this is necessary.
+		add_filter('option_page_capability_' . $this->settings_field, create_function(null, 'return "activity_report_admin";'));
 		
 	}
 	
 	public function menu() {
-		add_menu_page( 'Activity Reports', 'Activity Reports', 'activity_report_admin', 'activity-report-settings', array(&$this, 'settings_page'));
+		
 		add_options_page('Activity Report Settings', 'Activity Report Settings', 'activity_report_admin', 'activity-reports-settings', array(&$this, 'settings_page'));
 	}
 	
@@ -36,9 +38,9 @@ class Admin_Settings_Controller {
 	
 		register_setting($this->settings_field, $this->settings_field, array($this, 'settings_save'));
 	
-		//Report paramters
+		//Report parameters
 		add_settings_section(SHC_ACTIVITY_REPORT_PREFIX . 'parameter_section', __('Activity Report Settings'), array(&$this, 'parameter_section'), 'activity-reports-settings');
-		add_settings_field('weekly_day', __('Day of week'), array(&$this, 'day_of_week'), 'activity-reports-settings', SHC_ACTIVITY_REPORT_PREFIX . 'parameter_section');
+		add_settings_field('weekly_day', __('Day of week (CRON)'), array(&$this, 'day_of_week'), 'activity-reports-settings', SHC_ACTIVITY_REPORT_PREFIX . 'parameter_section');
 		add_settings_field('recipients', __('Email recipients'), array(&$this, 'recipients'), 'activity-reports-settings', SHC_ACTIVITY_REPORT_PREFIX . 'parameter_section');
 	
 		//Run report
@@ -96,7 +98,7 @@ class Admin_Settings_Controller {
 		
 	}
 	
-	
+	  
 	public function settings_save($settings) {
 	
 		$settings['recipients'] = explode(',', preg_replace('/\s/', '', $settings['recipients']));
@@ -119,6 +121,9 @@ class Admin_Settings_Controller {
 	public function settings_page() {
 	
 		Activity_Utils::view('admin/settings', array('settings_field' => $this->settings_field,
-													'settings_section' => 'activity-reports-settings'));
+													'settings_section' => 'activity-reports-settings',
+													'form_action'		=> 'options.php'));
 	}
+	
+	
 }
