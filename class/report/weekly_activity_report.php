@@ -92,7 +92,7 @@ class Weekly_Activity_Report extends Report_Base implements Report_Interface {
 		
 		if($this->last_weeks_data !== null) {
 			
-			$this->deltas = new stdClass();
+			$this->deltas = new \stdClass();
 			$this->deltas->comments = (int)$this->comments - (int)$this->last_weeks_data->comments;
 			$this->deltas->answers = (int)$this->answers - (int)$this->last_weeks_data->answers;
 			$this->deltas->posts = (int)$this->posts - (int)$this->last_weeks_data->posts;
