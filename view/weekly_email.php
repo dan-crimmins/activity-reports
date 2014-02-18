@@ -29,7 +29,7 @@ $delta_pos = 'style="color: #009900"';
 <tr bgcolor="#F8F8F8">
 <td align="left">New Comments:</td>
 <td><?php echo $data->comments;?></td>
-<td<?php if($has_deltas && $data->deltas->comments > 0): echo $delta_pos; elseif($has_deltas && $data->deltas->comments < 0): echo $delta_neg; endif;?>>
+<td <?php if($has_deltas && $data->deltas->comments > 0): echo $delta_pos; elseif($has_deltas && $data->deltas->comments < 0): echo $delta_neg; endif;?>>
 	<?php echo ($data->deltas !== null) ? $data->deltas->comments : 'NA';?> from last week</td>
 </tr>
 <tr>
